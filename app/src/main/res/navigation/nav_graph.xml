@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/loginFragment">
+
+    <fragment
+        android:id="@+id/hashFragment"
+        android:name="com.nroncari.tictaccrossandroidapp.presentation.ui.fragment.HashFragment"
+        android:label="Tic Tac Cross"
+        tools:layout="@layout/fragment_hash" />
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.nroncari.tictaccrossandroidapp.presentation.ui.fragment.LoginFragment"
+        android:label="Login"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_loginFragment_to_hashFragment"
+            app:destination="@id/hashFragment"
+            app:popUpTo="@id/loginFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_connectFragment"
+            app:destination="@id/connectFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/connectFragment"
+        android:name="com.nroncari.tictaccrossandroidapp.presentation.ui.fragment.ConnectFragment"
+        android:label="Game Connect"
+        tools:layout="@layout/fragment_connect_game">
+        <action
+            android:id="@+id/action_connectFragment_to_hashFragment"
+            app:destination="@id/hashFragment" />
+    </fragment>
+</navigation>

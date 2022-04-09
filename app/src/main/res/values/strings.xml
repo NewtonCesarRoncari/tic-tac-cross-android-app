@@ -1,3 +1,9 @@
 <resources>
-    <string name="app_name">Tic Tac Cross Android App</string>
+    <string name="app_name">Tic Tac Cross</string>
+    <string name="text_button_reset">reset</string>
+    <string name="hint_code">Code Session</string>
+    <string name="text_button_create_game">create game</string>
+    <string name="text_button_connect_game">connect a game</string>
+    <string name="text_button_connect">connect</string>
+    <string name="token_hint">token</string>
 </resources>
