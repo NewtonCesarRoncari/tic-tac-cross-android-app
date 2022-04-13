@@ -24,7 +24,7 @@ class SessionGameViewModel(
     private val _game = MutableLiveData<GamePresentation>()
     val game: LiveData<GamePresentation> get() = _game
 
-    var ticToe = TicToePresentation.X
+    lateinit var ticToe: TicToePresentation
 
     fun createGame() {
         viewModelScope.launch(Dispatchers.IO) {
@@ -32,6 +32,7 @@ class SessionGameViewModel(
             kotlin.runCatching {
                 createGameUseCase()
             }.onSuccess { game ->
+                ticToe = TicToePresentation.X
                 _game.postValue(game)
                 _resultSuccess.postValue(true)
             }.onFailure { error ->
@@ -47,6 +48,7 @@ class SessionGameViewModel(
             kotlin.runCatching {
                 connectGameUseCase(gameConnexion)
             }.onSuccess { game ->
+                ticToe = TicToePresentation.O
                 _game.postValue(game)
                 _resultSuccess.postValue(true)
             }.onFailure { error ->

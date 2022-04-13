@@ -53,7 +53,7 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_end="32dp" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/circle_a1"
         android:layout_width="@dimen/circle"
         android:layout_height="@dimen/circle"
@@ -63,8 +63,8 @@
         app:layout_constraintBottom_toTopOf="@+id/line_top_horizontal"
         app:layout_constraintEnd_toStartOf="@+id/line_left_vertical" />
 
-    <Button
-        android:id="@+id/circle_b1"
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/circle_a2"
         android:layout_width="@dimen/circle"
         android:layout_height="@dimen/circle"
         android:layout_marginStart="@dimen/margin_circle_line"
@@ -76,8 +76,8 @@
         app:layout_constraintHorizontal_bias="0.6"
         app:layout_constraintStart_toEndOf="@+id/line_left_vertical" />
 
-    <Button
-        android:id="@+id/circle_c1"
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/circle_a3"
         android:layout_width="@dimen/circle"
         android:layout_height="@dimen/circle"
         android:layout_marginStart="@dimen/margin_circle_line"
@@ -86,8 +86,8 @@
         app:layout_constraintBottom_toTopOf="@+id/line_top_horizontal"
         app:layout_constraintStart_toEndOf="@+id/line_right_vertical" />
 
-    <Button
-        android:id="@+id/circle_a2"
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/circle_b1"
         android:layout_width="@dimen/circle"
         android:layout_height="@dimen/circle"
         android:layout_marginEnd="@dimen/margin_circle_line"
@@ -96,7 +96,7 @@
         app:layout_constraintEnd_toStartOf="@+id/line_left_vertical"
         app:layout_constraintTop_toTopOf="@+id/circle_b2" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/circle_b2"
         android:layout_width="@dimen/circle"
         android:layout_height="@dimen/circle"
@@ -106,8 +106,8 @@
         app:layout_constraintStart_toStartOf="@+id/guideline_right"
         app:layout_constraintTop_toTopOf="@+id/guideline1" />
 
-    <Button
-        android:id="@+id/circle_c2"
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/circle_b3"
         android:layout_width="@dimen/circle"
         android:layout_height="@dimen/circle"
         android:layout_marginStart="@dimen/margin_circle_line"
@@ -116,8 +116,8 @@
         app:layout_constraintStart_toEndOf="@+id/line_right_vertical"
         app:layout_constraintTop_toTopOf="@+id/circle_b2" />
 
-    <Button
-        android:id="@+id/circle_a3"
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/circle_c1"
         android:layout_width="@dimen/circle"
         android:layout_height="@dimen/circle"
         android:layout_marginTop="@dimen/margin_circle_line"
@@ -126,8 +126,8 @@
         app:layout_constraintEnd_toStartOf="@+id/line_left_vertical"
         app:layout_constraintTop_toBottomOf="@+id/line_bottom_horizontal" />
 
-    <Button
-        android:id="@+id/circle_b3"
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/circle_c2"
         android:layout_width="@dimen/circle"
         android:layout_height="@dimen/circle"
         android:layout_marginStart="@dimen/margin_circle_line"
@@ -135,18 +135,17 @@
         android:layout_marginEnd="@dimen/margin_circle_line"
         android:background="@drawable/circle_item"
         app:layout_constraintEnd_toStartOf="@+id/line_right_vertical"
-        app:layout_constraintHorizontal_bias="0.6"
         app:layout_constraintStart_toEndOf="@+id/line_left_vertical"
         app:layout_constraintTop_toBottomOf="@+id/line_bottom_horizontal" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/circle_c3"
         android:layout_width="@dimen/circle"
         android:layout_height="@dimen/circle"
         android:layout_marginStart="@dimen/margin_circle_line"
         android:background="@drawable/circle_item"
         app:layout_constraintStart_toEndOf="@+id/line_right_vertical"
-        app:layout_constraintTop_toTopOf="@+id/circle_b3" />
+        app:layout_constraintTop_toTopOf="@+id/circle_c2" />
 
     <View
         android:id="@+id/line_top_horizontal"
@@ -157,8 +156,8 @@
         android:layout_marginBottom="@dimen/margin_circle_line"
         android:background="@color/colorPrimaryVariant"
         app:layout_constraintBottom_toTopOf="@+id/circle_b2"
-        app:layout_constraintEnd_toEndOf="@+id/circle_c2"
-        app:layout_constraintStart_toStartOf="@+id/circle_a2" />
+        app:layout_constraintEnd_toEndOf="@+id/circle_b3"
+        app:layout_constraintStart_toStartOf="@+id/circle_b1" />
 
     <View
         android:id="@+id/line_bottom_horizontal"
@@ -168,8 +167,8 @@
         android:layout_marginTop="@dimen/margin_circle_line"
         android:layout_marginEnd="8dp"
         android:background="@color/colorPrimaryVariant"
-        app:layout_constraintEnd_toEndOf="@+id/circle_c2"
-        app:layout_constraintStart_toStartOf="@+id/circle_a2"
+        app:layout_constraintEnd_toEndOf="@+id/circle_b3"
+        app:layout_constraintStart_toStartOf="@+id/circle_b1"
         app:layout_constraintTop_toBottomOf="@+id/circle_b2" />
 
     <View
@@ -180,9 +179,9 @@
         android:layout_marginEnd="@dimen/margin_circle_line"
         android:layout_marginBottom="8dp"
         android:background="@color/colorPrimaryVariant"
-        app:layout_constraintBottom_toBottomOf="@+id/circle_b3"
+        app:layout_constraintBottom_toBottomOf="@+id/circle_c2"
         app:layout_constraintEnd_toStartOf="@+id/circle_b2"
-        app:layout_constraintTop_toTopOf="@+id/circle_b1" />
+        app:layout_constraintTop_toTopOf="@+id/circle_a2" />
 
     <View
         android:id="@+id/line_right_vertical"
@@ -192,9 +191,31 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:background="@color/colorPrimaryVariant"
-        app:layout_constraintBottom_toBottomOf="@+id/circle_b3"
+        app:layout_constraintBottom_toBottomOf="@+id/circle_c2"
         app:layout_constraintStart_toEndOf="@+id/circle_b2"
-        app:layout_constraintTop_toTopOf="@+id/circle_b1" />
+        app:layout_constraintTop_toTopOf="@+id/circle_a2" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/x_winner"
+        android:layout_width="@dimen/circle"
+        android:layout_height="@dimen/circle"
+        android:background="@drawable/x_winner"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/reset"
+        app:layout_constraintEnd_toEndOf="@+id/reset"
+        app:layout_constraintStart_toStartOf="@+id/reset"
+        app:layout_constraintTop_toBottomOf="@+id/circle_c2" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/o_winner"
+        android:layout_width="@dimen/circle"
+        android:layout_height="@dimen/circle"
+        android:background="@drawable/o_winner"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/reset"
+        app:layout_constraintEnd_toEndOf="@+id/reset"
+        app:layout_constraintStart_toStartOf="@+id/reset"
+        app:layout_constraintTop_toBottomOf="@+id/circle_c2" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/reset"

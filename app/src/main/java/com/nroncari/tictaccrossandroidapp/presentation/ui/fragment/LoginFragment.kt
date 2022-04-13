@@ -1,6 +1,7 @@
 package com.nroncari.tictaccrossandroidapp.presentation.ui.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
@@ -8,23 +9,20 @@ import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.nroncari.tictaccrossandroidapp.data.websocket.Const
 import com.nroncari.tictaccrossandroidapp.databinding.FragmentLoginBinding
-import com.nroncari.tictaccrossandroidapp.presentation.model.TicToePresentation
 import com.nroncari.tictaccrossandroidapp.presentation.viewmodel.SessionGameViewModel
-import com.nroncari.tictaccrossandroidapp.presentation.ui.fragment.LoginFragmentDirections
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class LoginFragment : Fragment() {
 
-    private val binding by lazy {
-        FragmentLoginBinding.inflate(layoutInflater)
-    }
+    private val binding by lazy { FragmentLoginBinding.inflate(layoutInflater) }
     private val viewModel: SessionGameViewModel by sharedViewModel()
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View {
         return binding.root
     }
@@ -43,8 +41,7 @@ class LoginFragment : Fragment() {
         }
         viewModel.resultSuccess.observe(viewLifecycleOwner, { resultSuccess ->
             if (resultSuccess) {
-                viewModel.ticToe = TicToePresentation.X
-                goToHashFragment()
+                goToHashFragment(viewModel.game.value!!.id)
             }
             finishLoading()
         })
@@ -55,8 +52,8 @@ class LoginFragment : Fragment() {
         findNavController().navigate(direction)
     }
 
-    private fun goToHashFragment() {
-        val direction = LoginFragmentDirections.actionLoginFragmentToHashFragment()
+    private fun goToHashFragment(sessionGameCode: String) {
+        val direction = LoginFragmentDirections.actionLoginFragmentToHashFragment(sessionGameCode)
         findNavController().navigate(direction)
     }
 

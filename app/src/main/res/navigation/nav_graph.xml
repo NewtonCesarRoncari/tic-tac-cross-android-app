@@ -9,7 +9,11 @@
         android:id="@+id/hashFragment"
         android:name="com.nroncari.tictaccrossandroidapp.presentation.ui.fragment.HashFragment"
         android:label="Tic Tac Cross"
-        tools:layout="@layout/fragment_hash" />
+        tools:layout="@layout/fragment_hash" >
+        <argument
+            android:name="sessionGameCode"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.nroncari.tictaccrossandroidapp.presentation.ui.fragment.LoginFragment"
