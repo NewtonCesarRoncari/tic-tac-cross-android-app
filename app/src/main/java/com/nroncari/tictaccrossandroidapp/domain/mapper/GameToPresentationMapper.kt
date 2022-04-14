@@ -12,11 +12,14 @@ class GameToPresentationMapper : Mapper<GameDomain, GamePresentation> {
 
     override fun map(source: GameDomain): GamePresentation {
         return GamePresentation(
-            id = source.id,
-            amountPlayers = source.amountPlayers,
-            state = returnGameState(source.state),
-            board = source.board,
-            winner = returnWinner(source.winner)
+                id = source.id,
+                amountPlayers = source.amountPlayers,
+                lastTicToe = parseTicToe(source.lastTicToe),
+                state = returnGameState(source.state),
+                board = source.board,
+                winner = parseTicToe(source.winner),
+                xscore = source.xScore,
+                oscore = source.oScore
         )
     }
 
@@ -28,7 +31,7 @@ class GameToPresentationMapper : Mapper<GameDomain, GamePresentation> {
         }
     }
 
-    private fun returnWinner(winner: TicToeDomain?): TicToePresentation? {
+    private fun parseTicToe(winner: TicToeDomain?): TicToePresentation? {
         return when (winner) {
             TicToeDomain.X -> TicToePresentation.X
             TicToeDomain.O -> TicToePresentation.O

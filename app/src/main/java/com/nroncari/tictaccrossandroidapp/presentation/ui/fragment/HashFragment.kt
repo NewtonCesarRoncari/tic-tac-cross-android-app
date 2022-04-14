@@ -4,6 +4,7 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.INVISIBLE
@@ -15,8 +16,10 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.snackbar.Snackbar
 import com.nroncari.tictaccrossandroidapp.R
+import com.nroncari.tictaccrossandroidapp.data.websocket.Const
 import com.nroncari.tictaccrossandroidapp.databinding.FragmentHashBinding
 import com.nroncari.tictaccrossandroidapp.presentation.model.GamePlayPresentation
+import com.nroncari.tictaccrossandroidapp.presentation.model.GamePresentation
 import com.nroncari.tictaccrossandroidapp.presentation.model.GameStatePresentation
 import com.nroncari.tictaccrossandroidapp.presentation.model.TicToePresentation
 import com.nroncari.tictaccrossandroidapp.presentation.viewmodel.GamePlayViewModel
@@ -30,6 +33,7 @@ class HashFragment : Fragment() {
     private val viewModel: SessionGameViewModel by sharedViewModel()
     private val gamePlayViewModel: GamePlayViewModel by viewModel()
     private val args by navArgs<HashFragmentArgs>()
+    private var yourTime = true
     private val listCircles by lazy {
         mapOf(
                 0.0 to viewBinding.circleA1,
@@ -59,18 +63,22 @@ class HashFragment : Fragment() {
     }
 
     private fun listeners() {
+
         listCircles.forEach { map ->
             val resource = if (viewModel.ticToe.value == 1) R.drawable.circle_item_red else R.drawable.x_item_blue
             map.value.setOnClickListener {
-                markButton(map.value, resource)
-                val coordinate = map.key.toString().split(".")
+                if (yourTime) {
+                    markButton(map.value, resource)
+                    val coordinate = map.key.toString().split(".")
 
-                gamePlayViewModel.sendGamePlay(GamePlayPresentation(
-                        args.sessionGameCode,
-                        viewModel.ticToe.desc,
-                        coordinate.first().toInt(),
-                        coordinate.last().toInt()
-                ))
+                    gamePlayViewModel.sendGamePlay(GamePlayPresentation(
+                            args.sessionGameCode,
+                            viewModel.ticToe.desc,
+                            coordinate.first().toInt(),
+                            coordinate.last().toInt()
+                    ))
+                    yourTime = false
+                }
             }
         }
 
@@ -79,11 +87,7 @@ class HashFragment : Fragment() {
         }
 
         viewBinding.copy.setOnClickListener {
-            val clipBoard: ClipboardManager = requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-            val clip = ClipData.newPlainText("TextView", viewBinding.token.text.toString())
-            clipBoard.setPrimaryClip(clip)
-
-            Snackbar.make(requireView(), "Copied", Snackbar.LENGTH_SHORT).show()
+            configureClipBoard()
         }
 
         gamePlayViewModel.game.observe(viewLifecycleOwner, { game ->
@@ -93,22 +97,41 @@ class HashFragment : Fragment() {
                 TicToePresentation.X -> showXWInner()
                 else -> clearWinners()
             }
-            if (game.winner != null) {
-                if (game.winner == TicToePresentation.O) showOWinner() else showXWInner()
-            }
-            game.board.mapIndexed { x, ints ->
-                ints.mapIndexed { y, ticTacToe ->
-                    val position = "$x.$y".toDouble()
-
-                    if (ticTacToe == TicToePresentation.O.value)
-                        markButton(listCircles[position]!!, R.drawable.circle_item_red)
-
-                    if (ticTacToe == TicToePresentation.X.value)
-                        markButton(listCircles[position]!!, R.drawable.x_item_blue)
-
-                }
-            }
+            configureYourTime(game)
+            setScoreGame(game)
+            fillBoard(game)
         })
+    }
+
+    private fun configureYourTime(game: GamePresentation) {
+        yourTime = game.lastTicToe != viewModel.ticToe
+    }
+
+    private fun setScoreGame(game: GamePresentation) {
+        viewBinding.xAmountScoreBoard.text = game.xscore.toString()
+        viewBinding.oAmountScoreBoard.text = game.oscore.toString()
+    }
+
+    private fun fillBoard(game: GamePresentation) {
+        game.board.mapIndexed { x, ints ->
+            ints.mapIndexed { y, ticTacToe ->
+                val position = "$x.$y".toDouble()
+
+                if (ticTacToe == TicToePresentation.O.value)
+                    markButton(listCircles[position]!!, R.drawable.circle_item_red)
+
+                if (ticTacToe == TicToePresentation.X.value)
+                    markButton(listCircles[position]!!, R.drawable.x_item_blue)
+            }
+        }
+    }
+
+    private fun configureClipBoard() {
+        val clipBoard: ClipboardManager = requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+        val clip = ClipData.newPlainText("TextView", viewBinding.token.text.toString())
+        clipBoard.setPrimaryClip(clip)
+
+        Snackbar.make(requireView(), "Copied", Snackbar.LENGTH_SHORT).show()
     }
 
     private fun showXWInner() {
@@ -127,6 +150,7 @@ class HashFragment : Fragment() {
             )
             circleButton.isClickable = true
         }
+        yourTime = true
         clearWinners()
     }
 

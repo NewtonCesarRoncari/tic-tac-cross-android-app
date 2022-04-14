@@ -4,27 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/token"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/token_hint"
-        android:fontFamily="@font/googlesans_bold"
-        android:gravity="center"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toStartOf="@+id/guideline_left"
-        app:layout_constraintStart_toStartOf="@+id/guideline_right"
-        app:layout_constraintTop_toTopOf="@id/guideline1" />
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/copy"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/ic_baseline_content_copy_24"
-        app:layout_constraintStart_toStartOf="@id/token"
-        app:layout_constraintEnd_toEndOf="@id/token"
-        app:layout_constraintTop_toBottomOf="@id/token"/>
-
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline1"
         android:layout_width="wrap_content"
@@ -53,15 +32,89 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_end="32dp" />
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_centered"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/token"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="@font/googlesans_bold"
+        android:gravity="center"
+        android:text="@string/token_hint"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toStartOf="@+id/copy"
+        app:layout_constraintTop_toTopOf="@id/guideline1" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/x_amount_score_board"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/googlesans_bold"
+        android:gravity="center"
+        android:text="0"
+        android:textColor="@android:color/black"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/x_score_board"
+        app:layout_constraintStart_toEndOf="@+id/x_score_board"
+        app:layout_constraintTop_toTopOf="@+id/x_score_board" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/o_amount_score_board"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:fontFamily="@font/googlesans_bold"
+        android:gravity="center"
+        android:text="0"
+        android:textColor="@android:color/black"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/o_score_board"
+        app:layout_constraintStart_toEndOf="@+id/o_score_board"
+        app:layout_constraintTop_toTopOf="@+id/o_score_board" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/copy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_baseline_content_copy_24"
+        app:layout_constraintBottom_toBottomOf="@+id/token"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_left"
+        app:layout_constraintTop_toTopOf="@+id/guideline1" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/x_score_board"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:background="@drawable/x_item_blue"
+        app:layout_constraintStart_toStartOf="@+id/guideline_right"
+        app:layout_constraintTop_toTopOf="@+id/guideline1" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/o_score_board"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginStart="2dp"
+        android:background="@drawable/circle_item_red"
+        app:layout_constraintStart_toStartOf="@+id/guideline_right"
+        app:layout_constraintTop_toBottomOf="@+id/x_amount_score_board" />
+
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/circle_a1"
         android:layout_width="@dimen/circle"
         android:layout_height="@dimen/circle"
+        android:layout_marginStart="86dp"
         android:layout_marginEnd="@dimen/margin_circle_line"
         android:layout_marginBottom="@dimen/margin_circle_line"
         android:background="@drawable/circle_item"
         app:layout_constraintBottom_toTopOf="@+id/line_top_horizontal"
-        app:layout_constraintEnd_toStartOf="@+id/line_left_vertical" />
+        app:layout_constraintEnd_toStartOf="@+id/line_left_vertical"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/circle_a2"
