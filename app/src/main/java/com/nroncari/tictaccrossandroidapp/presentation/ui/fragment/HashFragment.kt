@@ -4,7 +4,6 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.INVISIBLE
@@ -16,7 +15,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.snackbar.Snackbar
 import com.nroncari.tictaccrossandroidapp.R
-import com.nroncari.tictaccrossandroidapp.data.websocket.Const
 import com.nroncari.tictaccrossandroidapp.databinding.FragmentHashBinding
 import com.nroncari.tictaccrossandroidapp.presentation.model.GamePlayPresentation
 import com.nroncari.tictaccrossandroidapp.presentation.model.GamePresentation
@@ -33,7 +31,6 @@ class HashFragment : Fragment() {
     private val viewModel: SessionGameViewModel by sharedViewModel()
     private val gamePlayViewModel: GamePlayViewModel by viewModel()
     private val args by navArgs<HashFragmentArgs>()
-    private var yourTime = true
     private val listCircles by lazy {
         mapOf(
                 0.0 to viewBinding.circleA1,
@@ -67,49 +64,59 @@ class HashFragment : Fragment() {
         listCircles.forEach { map ->
             val resource = if (viewModel.ticToe.value == 1) R.drawable.circle_item_red else R.drawable.x_item_blue
             map.value.setOnClickListener {
-                if (yourTime) {
+                if (gamePlayViewModel.yourTime) {
                     markButton(map.value, resource)
                     val coordinate = map.key.toString().split(".")
 
                     gamePlayViewModel.sendGamePlay(GamePlayPresentation(
-                            args.sessionGameCode,
-                            viewModel.ticToe.desc,
-                            coordinate.first().toInt(),
-                            coordinate.last().toInt()
+                            gameId = args.sessionGameCode,
+                            type = viewModel.ticToe.desc,
+                            coordinateX = coordinate.first().toInt(),
+                            coordinateY = coordinate.last().toInt()
                     ))
-                    yourTime = false
+                    gamePlayViewModel.disableButtons()
                 }
             }
         }
 
         viewBinding.reset.setOnClickListener {
-            gamePlayViewModel.clearBoard()
+            gamePlayViewModel.playAgain()
         }
 
         viewBinding.copy.setOnClickListener {
             configureClipBoard()
         }
 
+        gamePlayViewModel.isNewGame.observe(viewLifecycleOwner, {
+            clearBoard()
+        })
+
         gamePlayViewModel.game.observe(viewLifecycleOwner, { game ->
-            if (game.state == GameStatePresentation.NEW) clearBoard()
+            gamePlayViewModel.checkStateGame(GameStatePresentation.NEW)
             when (game.winner) {
                 TicToePresentation.O -> showOWinner()
                 TicToePresentation.X -> showXWInner()
                 else -> clearWinners()
             }
-            configureYourTime(game)
+            gamePlayViewModel.configureYourTime(viewModel.ticToe)
             setScoreGame(game)
             fillBoard(game)
         })
-    }
 
-    private fun configureYourTime(game: GamePresentation) {
-        yourTime = game.lastTicToe != viewModel.ticToe
+        gamePlayViewModel.secondPlayerConnected.observe(viewLifecycleOwner, {
+            gamePlayViewModel.checkIAmFirstPlayer(TicToePresentation.X)
+        })
+
+        gamePlayViewModel.showSecondPlayerSnackBar.observe(viewLifecycleOwner, {
+            Snackbar.make(requireView(), "Player 2 connected", Snackbar.LENGTH_SHORT).show()
+        })
     }
 
     private fun setScoreGame(game: GamePresentation) {
-        viewBinding.xAmountScoreBoard.text = game.xscore.toString()
-        viewBinding.oAmountScoreBoard.text = game.oscore.toString()
+        if (game.xscore >= viewBinding.xAmountScoreBoard.text.toString().toInt())
+            viewBinding.xAmountScoreBoard.text = game.xscore.toString()
+        if (game.oscore >= viewBinding.oAmountScoreBoard.text.toString().toInt())
+            viewBinding.oAmountScoreBoard.text = game.oscore.toString()
     }
 
     private fun fillBoard(game: GamePresentation) {
@@ -136,10 +143,12 @@ class HashFragment : Fragment() {
 
     private fun showXWInner() {
         viewBinding.xWinner.visibility = VISIBLE
+        gamePlayViewModel.disableButtons()
     }
 
     private fun showOWinner() {
         viewBinding.oWinner.visibility = VISIBLE
+        gamePlayViewModel.disableButtons()
     }
 
     private fun clearBoard() {
@@ -150,7 +159,7 @@ class HashFragment : Fragment() {
             )
             circleButton.isClickable = true
         }
-        yourTime = true
+        gamePlayViewModel.enableButtons()
         clearWinners()
     }
 

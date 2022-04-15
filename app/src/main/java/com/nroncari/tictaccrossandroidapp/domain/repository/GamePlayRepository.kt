@@ -8,5 +8,5 @@ interface GamePlayRepository {
 
     suspend fun sendGamePlay(gamePlay: GamePlayRequest): GamePresentation
 
-    suspend fun clearBoard(gamePlay: GamePlayRequest): GamePresentation
+    suspend fun playAgain(gamePlay: GamePlayRequest): GamePresentation
 }

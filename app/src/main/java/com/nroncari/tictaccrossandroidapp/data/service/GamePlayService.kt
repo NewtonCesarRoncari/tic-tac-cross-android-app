@@ -11,5 +11,5 @@ interface GamePlayService {
     suspend fun sendGamePlay(@Body gamePlay: GamePlayRequest): GameResponse
 
     @POST("playagain")
-    suspend fun clearBoard(@Body gamePlay: GamePlayRequest): GameResponse
+    suspend fun playAgain(@Body gamePlay: GamePlayRequest): GameResponse
 }

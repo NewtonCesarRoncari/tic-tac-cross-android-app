@@ -15,7 +15,7 @@ class GamePlayRemoteDataSourceImpl(
         return gameMapper.map(service.sendGamePlay(gamePlay))
     }
 
-    override suspend fun clearBoard(gamePlay: GamePlayRequest): GameDomain {
-        return gameMapper.map(service.clearBoard(gamePlay))
+    override suspend fun playAgain(gamePlay: GamePlayRequest): GameDomain {
+        return gameMapper.map(service.playAgain(gamePlay))
     }
 }

@@ -12,7 +12,7 @@ import com.nroncari.tictaccrossandroidapp.data.service.GamePlayService
 import com.nroncari.tictaccrossandroidapp.data.service.GameService
 import com.nroncari.tictaccrossandroidapp.domain.repository.GamePlayRepository
 import com.nroncari.tictaccrossandroidapp.domain.repository.GameRepository
-import com.nroncari.tictaccrossandroidapp.domain.usecase.ClearGameBoardUseCase
+import com.nroncari.tictaccrossandroidapp.domain.usecase.PlayAgainUseCase
 import com.nroncari.tictaccrossandroidapp.domain.usecase.ConnectGameUseCase
 import com.nroncari.tictaccrossandroidapp.domain.usecase.CreateGameUseCase
 import com.nroncari.tictaccrossandroidapp.domain.usecase.GamePlayUseCase
@@ -26,12 +26,12 @@ val domainModules = module {
     factory { CreateGameUseCase(repository = get()) }
     factory { ConnectGameUseCase(repository = get()) }
     factory { GamePlayUseCase(repository = get()) }
-    factory { ClearGameBoardUseCase(repository = get()) }
+    factory { PlayAgainUseCase(repository = get()) }
 }
 
 val presentationModules = module {
     viewModel { SessionGameViewModel(createGameUseCase = get(), connectGameUseCase = get()) }
-    viewModel { GamePlayViewModel(gamePlayUseCase = get(), clearBoardUseCase = get()) }
+    viewModel { GamePlayViewModel(gamePlayUseCase = get(), playAgainUseCase = get()) }
 }
 
 val dataModules = module {

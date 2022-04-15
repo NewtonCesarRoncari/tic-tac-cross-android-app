@@ -10,7 +10,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
-private const val BASE_URL = "http://192.168.100.11:8080/game/"
+private const val BASE_URL = "http://192.168.100.14:8080/game/"
 private const val CACHE_SIZE = 5 * 1024 * 1024L // 5 MB de cache
 
 class RetrofitClient(

@@ -16,7 +16,7 @@ class GamePlayRepositoryImpl(
         return mapper.map(remoteDataSource.sendGamePlay(gamePlay))
     }
 
-    override suspend fun clearBoard(gamePlay: GamePlayRequest): GamePresentation {
-        return mapper.map(remoteDataSource.clearBoard(gamePlay))
+    override suspend fun playAgain(gamePlay: GamePlayRequest): GamePresentation {
+        return mapper.map(remoteDataSource.playAgain(gamePlay))
     }
 }

@@ -7,5 +7,5 @@ interface GamePlayRemoteDataSource {
 
     suspend fun sendGamePlay(gamePlay: GamePlayRequest): GameDomain
 
-    suspend fun clearBoard(gamePlay: GamePlayRequest): GameDomain
+    suspend fun playAgain(gamePlay: GamePlayRequest): GameDomain
 }
