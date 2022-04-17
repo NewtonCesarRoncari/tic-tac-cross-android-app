@@ -41,7 +41,7 @@ class HashFragment : Fragment() {
                 1.2 to viewBinding.circleB3,
                 2.0 to viewBinding.circleC1,
                 2.1 to viewBinding.circleC2,
-                2.2 to viewBinding.circleC3,
+                2.2 to viewBinding.circleC3
         )
     }
 

@@ -3,7 +3,6 @@ package com.nroncari.tictaccrossandroidapp.data.retrofit
 import android.content.Context
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -11,7 +10,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 private const val BASE_URL = "http://192.168.100.14:8080/game/"
-private const val CACHE_SIZE = 5 * 1024 * 1024L // 5 MB de cache
 
 class RetrofitClient(
     private val application: Context
@@ -25,7 +23,6 @@ class RetrofitClient(
 
         interceptor.level = HttpLoggingInterceptor.Level.BODY
         OkHttpClient.Builder()
-            .cache(cacheSize())
             .addNetworkInterceptor(CacheInterceptor)
             .addInterceptor(interceptor)
             .connectTimeout(timeOut, TimeUnit.SECONDS)
@@ -40,9 +37,5 @@ class RetrofitClient(
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
-    }
-
-    private fun cacheSize(): Cache {
-        return Cache(application.cacheDir, CACHE_SIZE)
     }
 }

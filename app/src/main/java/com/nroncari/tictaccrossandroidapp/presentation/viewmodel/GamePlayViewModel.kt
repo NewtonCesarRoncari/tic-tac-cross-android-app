@@ -49,9 +49,6 @@ class GamePlayViewModel(
     private val _game = MutableLiveData<GamePresentation>()
     val game: LiveData<GamePresentation> get() = _game
 
-    private val _winner = MutableLiveData<TicToePresentation?>().apply { value = null }
-    val winner: LiveData<TicToePresentation?> get() = _winner
-
     fun intConnectionWebSocket(sessionGameCode: String) {
         stompClient.connect()
         StompUtils.lifecycle(stompClient)
@@ -62,7 +59,6 @@ class GamePlayViewModel(
                         val jsonObject = JSONObject(stompMessage.payload)
                         Log.i(Const.TAG, "ReceiveWS: $jsonObject")
                         val game = Gson().fromJson(jsonObject.toString(), GamePresentation::class.java)
-                        _winner.postValue(game.winner)
                         _game.postValue(game)
                     } catch (e: Error) {
                         Log.e(Const.TAG, "Algo de errado não está certo")

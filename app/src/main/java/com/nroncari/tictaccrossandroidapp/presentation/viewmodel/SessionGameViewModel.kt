@@ -18,11 +18,11 @@ class SessionGameViewModel(
     private val connectGameUseCase: ConnectGameUseCase
 ): ViewModel() {
 
-    private val _resultSuccess = MutableLiveData<Boolean>().apply { value = false }
-    val resultSuccess: LiveData<Boolean> get() = _resultSuccess
+    private val _resultSuccess = MutableLiveData<Boolean?>().apply { value = false }
+    val resultSuccess: LiveData<Boolean?> get() = _resultSuccess
 
-    private val _game = MutableLiveData<GamePresentation>()
-    val game: LiveData<GamePresentation> get() = _game
+    private val _game = MutableLiveData<GamePresentation?>()
+    val game: LiveData<GamePresentation?> get() = _game
 
     lateinit var ticToe: TicToePresentation
 
@@ -56,5 +56,10 @@ class SessionGameViewModel(
                 _resultSuccess.postValue(false)
             }
         }
+    }
+
+    override fun onCleared() {
+        _resultSuccess.postValue(null)
+        _game.postValue(null)
     }
 }

@@ -89,9 +89,11 @@ Vapp/src/main/java/com/nroncari/tictaccrossandroidapp/domain/usecase/GamePlayUse
 dapp/src/main/java/com/nroncari/tictaccrossandroidapp/data/datasource/GamePlayRemoteDataSourceImpl.kt,b\5\b55493f40336c1503842afd5e657aea203a656db
 é
 ^app/src/main/java/com/nroncari/tictaccrossandroidapp/data/repository/GamePlayRepositoryImpl.kt,0\f\0f1571d55a6252075edf78e928f1bd29e6467be0
-å
-\app/src/main/java/com/nroncari/tictaccrossandroidapp/domain/usecase/ClearGameBoardUseCase.kt,9\4\94305cf9e3c9bb5559073129df5e839c59a47788
 Ñ
 Tapp/src/main/java/com/nroncari/tictaccrossandroidapp/data/service/GamePlayService.kt,0\6\06051e5ccfa2594c5bace07bf77bcfad24eb0d8e
 ê
 `app/src/main/java/com/nroncari/tictaccrossandroidapp/presentation/viewmodel/GamePlayViewModel.kt,4\f\4ffc7e41610106eda4aae5df4238ace9d9cfd00c
+á
+Wapp/src/main/java/com/nroncari/tictaccrossandroidapp/domain/usecase/PlayAgainUseCase.kt,0\e\0e66a3fb6038f8ced5add7dfa60625a034b700ec
+è
+_app/src/main/java/com/nroncari/tictaccrossandroidapp/presentation/model/GamePlayPresentation.kt,0\b\0b6a83f18ccf6ce3a5a9bd0e6fcbfc6163835fb8

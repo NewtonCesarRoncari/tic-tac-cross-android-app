@@ -65,7 +65,7 @@ class ConnectFragment : Fragment() {
             }
         }
         viewModel.resultSuccess.observe(viewLifecycleOwner, { resultSuccess ->
-            if (resultSuccess) {
+            if (resultSuccess == true) {
                 goToHashFragment(binding.connectCode.text.toString().trim())
             }
             finishLoading()
