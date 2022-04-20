@@ -18,19 +18,22 @@ class LoginFragment : Fragment() {
     private val viewModel: SessionGameViewModel by sharedViewModel()
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View {
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        binding.networkErrorAnimation.setAnimation("anim/network_error.json")
+
         listeners()
     }
 
     private fun listeners() {
         binding.create.setOnClickListener {
+            disableAnimation()
             initLoading()
             viewModel.createGame()
         }
@@ -43,6 +46,10 @@ class LoginFragment : Fragment() {
             }
             finishLoading()
         })
+        viewModel.onRequisitionError.observe(viewLifecycleOwner, { messageError ->
+            if (messageError != null)
+                initNetworkAnimationError(messageError)
+        })
     }
 
     private fun goToConnectGameFragment() {
@@ -53,6 +60,22 @@ class LoginFragment : Fragment() {
     private fun goToHashFragment(sessionGameCode: String) {
         val direction = LoginFragmentDirections.actionLoginFragmentToHashFragment(sessionGameCode)
         findNavController().navigate(direction)
+    }
+
+    private fun initNetworkAnimationError(messageError: String) {
+        with(binding.networkErrorAnimation) {
+            scaleX = 0.5f
+            scaleY = 0.5f
+            visibility = VISIBLE
+            playAnimation()
+        }
+        binding.networkErrorMessage.visibility = VISIBLE
+        binding.networkErrorMessage.text = messageError
+    }
+
+    private fun disableAnimation() {
+        binding.networkErrorMessage.visibility = View.INVISIBLE
+        binding.networkErrorAnimation.visibility = View.INVISIBLE
     }
 
     private fun initLoading() {

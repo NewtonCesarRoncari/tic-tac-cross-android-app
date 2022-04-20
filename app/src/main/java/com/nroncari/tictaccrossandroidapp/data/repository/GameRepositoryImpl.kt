@@ -3,8 +3,8 @@ package com.nroncari.tictaccrossandroidapp.data.repository
 import com.nroncari.tictaccrossandroidapp.data.datasource.GameRemoteDataSource
 import com.nroncari.tictaccrossandroidapp.data.model.GameConnexionRequest
 import com.nroncari.tictaccrossandroidapp.domain.mapper.GameToPresentationMapper
-import com.nroncari.tictaccrossandroidapp.presentation.model.GamePresentation
 import com.nroncari.tictaccrossandroidapp.domain.repository.GameRepository
+import com.nroncari.tictaccrossandroidapp.presentation.model.GamePresentation
 
 class GameRepositoryImpl(
     private val remoteDataSource: GameRemoteDataSource

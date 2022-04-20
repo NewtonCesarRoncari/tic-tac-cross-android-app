@@ -74,4 +74,7 @@ dependencies {
     // WebSocket
     api "com.github.NaikSoftware:StompProtocolAndroid:1.6.6"
     api "io.reactivex.rxjava2:rxjava:2.2.8"
+
+    def lottieVersion = "5.0.3"
+    implementation "com.airbnb.android:lottie:$lottieVersion"
 }

@@ -4,6 +4,31 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/network_error_animation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/connectCodeTextInputLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/connect_progressbar"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="false" />
+
+    <TextView
+        android:id="@+id/network_error_message"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:gravity="center"
+        app:layout_constraintBottom_toTopOf="@+id/guideline_centered"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_left"
+        app:layout_constraintStart_toStartOf="@+id/guideline_right"
+        app:layout_constraintTop_toBottomOf="@+id/connectCodeTextInputLayout" />
+
     <ProgressBar
         android:id="@+id/connect_progressbar"
         style="@style/Widget.AppCompat.ProgressBar.Horizontal"
@@ -44,6 +69,13 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_end="32dp" />
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_centered"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5"/>
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/connectCodeTextInputLayout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
@@ -75,9 +107,8 @@
         android:text="@string/text_button_connect"
         android:textAppearance="@style/TextAppearance.AppCompat.Button"
         app:cornerRadius="@dimen/default_radius"
-        app:layout_constraintBottom_toBottomOf="@id/guideline2"
         app:layout_constraintEnd_toStartOf="@+id/guideline_left"
         app:layout_constraintStart_toStartOf="@+id/guideline_right"
-        app:layout_constraintTop_toTopOf="@+id/guideline1" />
+        app:layout_constraintTop_toTopOf="@+id/guideline_centered" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

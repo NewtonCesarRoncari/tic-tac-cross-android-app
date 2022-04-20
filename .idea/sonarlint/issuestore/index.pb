@@ -97,3 +97,5 @@ Tapp/src/main/java/com/nroncari/tictaccrossandroidapp/data/service/GamePlayServi
 Wapp/src/main/java/com/nroncari/tictaccrossandroidapp/domain/usecase/PlayAgainUseCase.kt,0\e\0e66a3fb6038f8ced5add7dfa60625a034b700ec
 è
 _app/src/main/java/com/nroncari/tictaccrossandroidapp/presentation/model/GamePlayPresentation.kt,0\b\0b6a83f18ccf6ce3a5a9bd0e6fcbfc6163835fb8
+Ç
+Rapp/src/main/java/com/nroncari/tictaccrossandroidapp/data/model/GamePlayRequest.kt,a\0\a0d416ce7ada10206dc39a6a9c24778493fe9917

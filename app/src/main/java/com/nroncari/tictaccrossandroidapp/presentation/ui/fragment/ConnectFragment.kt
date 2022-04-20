@@ -4,14 +4,17 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.*
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.airbnb.lottie.LottieAnimationView
 import com.nroncari.tictaccrossandroidapp.databinding.FragmentConnectGameBinding
 import com.nroncari.tictaccrossandroidapp.presentation.model.GameConnexionPresentation
 import com.nroncari.tictaccrossandroidapp.presentation.validator.CodeGameValidator
 import com.nroncari.tictaccrossandroidapp.presentation.validator.Validator
 import com.nroncari.tictaccrossandroidapp.presentation.viewmodel.SessionGameViewModel
+import org.koin.android.ext.android.bind
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 
@@ -23,15 +26,16 @@ class ConnectFragment : Fragment() {
     private val viewModel: SessionGameViewModel by sharedViewModel()
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View {
         return binding.root
     }
 
-    @SuppressLint("CheckResult")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        binding.networkErrorAnimation.setAnimation("anim/network_error.json")
+
         listener()
         validateFieldGameCode()
     }
@@ -57,10 +61,11 @@ class ConnectFragment : Fragment() {
 
     private fun listener() {
         binding.connect.setOnClickListener {
+            disableAnimation()
             if (validAllFields()) {
                 initLoading()
                 viewModel.connectGame(
-                        GameConnexionPresentation(binding.connectCode.text.toString().trim())
+                    GameConnexionPresentation(binding.connectCode.text.toString().trim())
                 )
             }
         }
@@ -70,18 +75,39 @@ class ConnectFragment : Fragment() {
             }
             finishLoading()
         })
+        viewModel.onRequisitionError.observe(viewLifecycleOwner, { messageError ->
+            if (messageError != null)
+            initNetworkAnimationError(messageError)
+        })
     }
 
     private fun goToHashFragment(sessionGameCode: String) {
-        val direction = ConnectFragmentDirections.actionConnectFragmentToHashFragment(sessionGameCode)
+        val direction =
+            ConnectFragmentDirections.actionConnectFragmentToHashFragment(sessionGameCode)
         findNavController().navigate(direction)
     }
 
+    private fun initNetworkAnimationError(messageError: String) {
+        with(binding.networkErrorAnimation) {
+            scaleX = 0.5f
+            scaleY = 0.5f
+            visibility = VISIBLE
+            playAnimation()
+        }
+        binding.networkErrorMessage.visibility = VISIBLE
+        binding.networkErrorMessage.text = messageError
+    }
+
+    private fun disableAnimation() {
+        binding.networkErrorMessage.visibility = INVISIBLE
+        binding.networkErrorAnimation.visibility = INVISIBLE
+    }
+
     private fun initLoading() {
-        binding.connectProgressbar.visibility = View.VISIBLE
+        binding.connectProgressbar.visibility = VISIBLE
     }
 
     private fun finishLoading() {
-        binding.connectProgressbar.visibility = View.GONE
+        binding.connectProgressbar.visibility = GONE
     }
 }
