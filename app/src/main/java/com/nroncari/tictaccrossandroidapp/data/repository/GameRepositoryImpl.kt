@@ -3,6 +3,7 @@ package com.nroncari.tictaccrossandroidapp.data.repository
 import com.nroncari.tictaccrossandroidapp.data.datasource.GameRemoteDataSource
 import com.nroncari.tictaccrossandroidapp.data.model.GameConnexionRequest
 import com.nroncari.tictaccrossandroidapp.domain.mapper.GameToPresentationMapper
+import com.nroncari.tictaccrossandroidapp.domain.model.GameDomain
 import com.nroncari.tictaccrossandroidapp.domain.repository.GameRepository
 import com.nroncari.tictaccrossandroidapp.presentation.model.GamePresentation
 
@@ -10,13 +11,11 @@ class GameRepositoryImpl(
     private val remoteDataSource: GameRemoteDataSource
 ) : GameRepository {
 
-    private val mapper = GameToPresentationMapper()
-
-    override suspend fun createGame(): GamePresentation {
-        return mapper.map(remoteDataSource.createGame())
+    override suspend fun createGame(): GameDomain {
+        return remoteDataSource.createGame()
     }
 
-    override suspend fun connectGame(gameConnexion: GameConnexionRequest): GamePresentation {
-        return mapper.map(remoteDataSource.connectGame(gameConnexion))
+    override suspend fun connectGame(gameConnexion: GameConnexionRequest): GameDomain {
+        return remoteDataSource.connectGame(gameConnexion)
     }
 }
